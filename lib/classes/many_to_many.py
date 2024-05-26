@@ -3,6 +3,16 @@ class Article:
         self.author = author
         self.magazine = magazine
         self.title = title
+
+        def title (self):
+            pass
+        
+        def author (self):
+            pass
+
+        def magazine (self):
+            pass 
+            
         
 class Author:
     def __init__(self, name):
@@ -36,3 +46,7 @@ class Magazine:
 
     def contributing_authors(self):
         pass
+
+   
+
+    

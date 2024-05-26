@@ -222,3 +222,53 @@ class TestMagazine:
         
     #     assert Magazine.top_publisher() == magazine_1
     #     assert isinstance(Magazine.top_publisher(), Magazine)
+
+def setup_method(self):
+        self.magazine = Magazine("Vogue", "Fashion")
+        self.author1 = Author("Carry Bradshaw")
+        self.author2 = Author("John Doe")
+
+def test_magazine_is_initialized_with_name_and_category(self):
+        assert self.magazine.name == "Vogue"
+        assert self.magazine.category == "Fashion"
+
+def test_magazine_name_can_be_changed(self):
+        self.magazine.name = "New Vogue"
+        assert self.magazine.name == "New Vogue"
+
+def test_magazine_category_can_be_changed(self):
+        self.magazine.category = "Lifestyle"
+        assert self.magazine.category == "Lifestyle"
+
+def test_magazine_articles(self):
+        article1 = Article(self.author1, self.magazine, "Fashion Trends")
+        article2 = Article(self.author2, self.magazine, "Summer Styles")
+        assert set(self.magazine.articles()) == {article1, article2}
+
+def test_magazine_contributors(self):
+        article1 = Article(self.author1, self.magazine, "Fashion Trends")
+        article2 = Article(self.author2, self.magazine, "Summer Styles")
+        assert set(self.magazine.contributors()) == {self.author1, self.author2}
+
+def test_article_titles(self):
+        article1 = Article(self.author1, self.magazine, "Fashion Trends")
+        article2 = Article(self.author2, self.magazine, "Summer Styles")
+        assert set(self.magazine.article_titles()) == {"Fashion Trends", "Summer Styles"}
+
+def test_contributing_authors(self):
+        article1 = Article(self.author1, self.magazine, "Fashion Trends")
+        article2 = Article(self.author1, self.magazine, "Summer Styles")
+        article3 = Article(self.author1, self.magazine, "Winter Collection")
+        article4 = Article(self.author2, self.magazine, "Tech Innovations")
+        assert self.magazine.contributing_authors() == [self.author1]
+
+def test_top_publisher(self):
+        magazine1 = Magazine("Vogue", "Fashion")
+        magazine2 = Magazine("Tech Today", "Technology")
+        author = Author("Jane Smith")
+        article1 = Article(author, magazine1, "Fashion Trends")
+        article2 = Article(author, magazine1, "Summer Styles")
+        article3 = Article(author, magazine1, "Winter Collection")
+        article4 = Article(author, magazine2, "Tech Innovations")
+        assert Magazine.top_publisher() == magazine1
+
