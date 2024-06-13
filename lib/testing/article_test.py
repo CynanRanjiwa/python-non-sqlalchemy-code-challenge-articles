@@ -6,7 +6,6 @@ from classes.many_to_many import Author
 
 
 class TestArticle:
-    
     """Article in many_to_many.py"""
 
     def test_has_title(self):
@@ -26,14 +25,14 @@ class TestArticle:
         article_1 = Article(author, magazine, "How to wear a tutu with style")
 
         # comment out the next two lines if using Exceptions
-        article_1.title = 500
-        assert article_1.title == "How to wear a tutu with style"
+        #article_1.title = 500
+        #assert article_1.title == "How to wear a tutu with style"
         
         assert isinstance(article_1.title, str)
 
         # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     Article(author, magazine, 500)
+        with pytest.raises(Exception):
+             Article(author, magazine, 500)
 
     def test_title_is_valid(self):
         """title is between 5 and 50 characters inclusive"""
@@ -44,12 +43,12 @@ class TestArticle:
         assert 5 <= len(article_1.title) <= 50
 
         # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     Article(author, magazine, "Test")
+        with pytest.raises(Exception):
+             Article(author, magazine, "Test")
 
         # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     Article(author, magazine, "How to wear a tutu with style and walk confidently down the street")
+        with pytest.raises(Exception):
+             Article(author, magazine, "How to wear a tutu with style and walk confidently down the street")
 
     def test_has_an_author(self):
         """article has an author"""
@@ -115,30 +114,3 @@ class TestArticle:
         assert len(Article.all) == 2
         assert article_1 in Article.all
         assert article_2 in Article.all
-class Article:
-    _all_articles = []
-
-    def __init__(self, author, magazine, title):
-        if not isinstance(author, Author):
-            raise ValueError("Author must be an instance of Author.")
-        if not isinstance(magazine, Magazine):
-            raise ValueError("Magazine must be an instance of Magazine.")
-        if not isinstance(title, str) or not (5 <= len(title) <= 50):
-            raise ValueError("Title must be a string between 5 and 50 characters.")
-        
-        self._author = author
-        self._magazine = magazine
-        self._title = title
-        Article._all_articles.append(self)
-
-    @property
-    def title(self):
-        return self._title
-
-    @property
-    def author(self):
-        return self._author
-
-    @property
-    def magazine(self):
-        return self._magazine

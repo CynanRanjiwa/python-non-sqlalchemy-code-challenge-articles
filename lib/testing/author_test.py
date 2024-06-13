@@ -28,16 +28,16 @@ class TestAuthor:
         assert isinstance(author_2.name, str)
 
         # comment out the next two lines if using Exceptions
-        author_1.name = "ActuallyTopher"
-        assert author_1.name == "Carry Bradshaw"
+        #author_1.name = "ActuallyTopher"
+        #assert author_1.name == "Carry Bradshaw"
 
         # comment out the next two lines if using Exceptions
-        author_2.name = 2
-        assert author_2.name == "Nathaniel Hawthorne"
+        #author_2.name = 2
+        #assert author_2.name == "Nathaniel Hawthorne"
 
         # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     Author(2)
+        with pytest.raises(Exception):
+             Author(2)
 
     def test_name_len(self):
         """author name is longer than 0 characters"""
@@ -50,8 +50,8 @@ class TestAuthor:
         assert len(author_2.name) > 0
 
         # uncomment the next two lines if using Exceptions
-        # with pytest.raises(Exception):
-        #     Author("")
+        with pytest.raises(Exception):
+             Author("")
 
     def test_has_many_articles(self):
         """author has many articles"""
@@ -166,36 +166,3 @@ class TestAuthor:
         assert "Fashion" in author_1.topic_areas()
         assert "Architecture" in author_1.topic_areas()
         assert author_2.topic_areas() is None
-  
-
-
-class TestAuthor:
-    def setup_method(self):
-        self.author = Author("Carry Bradshaw")
-        self.magazine1 = Magazine("Vogue", "Fashion")
-        self.magazine2 = Magazine("Tech Today", "Technology")
-
-    def test_author_is_initialized_with_name(self):
-        assert self.author.name == "Carry Bradshaw"
-
-    def test_author_name_is_immutable(self):
-        with pytest.raises(AttributeError):
-            self.author.name = "New Name"
-
-    def test_author_articles(self):
-        article1 = Article(self.author, self.magazine1, "How to wear a tutu with style")
-        assert self.author.articles() == [article1]
-
-    def test_author_magazines(self):
-        article1 = Article(self.author, self.magazine1, "How to wear a tutu with style")
-        article2 = Article(self.author, self.magazine2, "The future of tech")
-        assert set(self.author.magazines()) == {self.magazine1, self.magazine2}
-
-    def test_add_article(self):
-        article = self.author.add_article(self.magazine1, "New Trends")
-        assert article in self.author.articles()
-
-    def test_topic_areas(self):
-        article1 = Article(self.author, self.magazine1, "Fashion Trends")
-        article2 = Article(self.author, self.magazine2, "Tech Innovations")
-        assert set(self.author.topic_areas()) == {"Fashion", "Technology"}
